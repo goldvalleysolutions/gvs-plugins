@@ -2,7 +2,7 @@
 
 Basic task and calendar coordination for a small office, on personal Claude (Free or Pro). It keeps a task list in your own notes: to-dos, who they are assigned to (including other staff), due dates, and meetings from your Google Calendar. Then you just ask.
 
-**Status: 0.1.0, built.** Local reviews are done. A human install-and-use test and a model eval on a maintainer's Claude account are still outstanding. Free under the [MIT License](../../LICENSE).
+**Status: 0.1.0.** Ready to try, and free under the [MIT License](../../LICENSE). A full install test by a person, and a model eval, are still outstanding.
 
 ## What you can ask
 
@@ -37,12 +37,20 @@ Coordinator writes plain files in your working folder under `memory/coordinator/
 
 ## Install
 
+### On claude.ai or the Claude desktop app
+
+Open **Customize > Plugins**, choose **Add > Add marketplace**, and enter `goldvalleysolutions/gvs-plugins`. Then add Coordinator.
+
+To install from a zip instead: from the repository root run `cd plugins && zip -r coordinator.zip coordinator -x "coordinator/evals/*"`, then **Customize > Plugins > Add > Upload plugin** and choose that file.
+
+### Claude Code
+
 ```bash
 claude plugin marketplace add goldvalleysolutions/gvs-plugins
 claude plugin install coordinator@goldvalleysolutions
 ```
 
-On claude.ai or the desktop app: Customize > Plugins > Add > Add marketplace > `goldvalleysolutions/gvs-plugins`, then add Coordinator. Or upload a zip: from the repository root run `cd plugins && zip -r coordinator.zip coordinator -x "coordinator/evals/*"`, then Customize > Plugins > Add > Upload plugin.
+Questions? Use the contact form on our website: [goldvalleysolutions.com/#contact](https://goldvalleysolutions.com/#contact).
 
 ## Install-and-use test (for a person to run)
 
@@ -73,7 +81,7 @@ About 20 minutes. Use a scratch folder and invented tasks. Tick each box; write 
     - On Free: expected a plain "Free doesn't have scheduled tasks" with the by-hand option and "Pro or higher". It must not say a schedule exists.
     - On Pro or higher: it gives you the exact prompt and schedule to paste into a scheduled task. After you create it, confirm it ran once and produced the list.
 
-Pass: every box ticked, nothing sent anywhere, and no file written before you said yes. Send the results to the maintainers.
+Pass: every box ticked, nothing sent anywhere, and no file written before you said yes. Send the results with the contact form at [goldvalleysolutions.com/#contact](https://goldvalleysolutions.com/#contact).
 
 ## Testing the plugin itself
 

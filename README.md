@@ -10,7 +10,7 @@ Plugins are plain files: instructions (skills), starter notes and fixtures. Ther
 
 | Plugin | What it does | Status |
 | --- | --- | --- |
-| [Coordinator](plugins/coordinator/README.md) | Tasks, assignees, due dates, and Google Calendar meetings, in your own notes. | 0.1.0, built. A human install test and a model eval on a Claude account are still outstanding. |
+| [Coordinator](plugins/coordinator/README.md) | Tasks, assignees, due dates, and Google Calendar meetings, in your own notes. | 0.1.0. Ready to try; a full install test and a model eval are still outstanding. |
 
 ## Install
 
@@ -18,7 +18,7 @@ Plugins are plain files: instructions (skills), starter notes and fixtures. Ther
 
 Open **Customize > Plugins**, choose **Add > Add marketplace**, and enter `goldvalleysolutions/gvs-plugins`. Then pick a plugin from the list and select **Add**.
 
-The install name is the plugin name, an `@`, and the marketplace name, for example `coordinator@goldvalleysolutions` once Coordinator is listed. A plugin's skills then run as `/<plugin>:<skill>`, for example `/coordinator:setup`.
+The install name is the plugin name, an `@`, and the marketplace name, for example `coordinator@goldvalleysolutions`. A plugin's skills then run as `/<plugin>:<skill>`, for example `/coordinator:setup`.
 
 ### 2. Upload a zip
 
