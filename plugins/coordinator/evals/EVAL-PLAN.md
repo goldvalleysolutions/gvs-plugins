@@ -38,7 +38,7 @@ Coordinator is a set of instructions (skills) plus local notes. The evals check 
 - `llm` graders only for short judgments, with concrete PASS and FAIL rubrics (for example "says Carlos has nothing logged").
 - Every case also has a step grader (the right skill ran).
 
-## Pass bar (proposed, for the PM and Mike to confirm)
+## Pass bar (proposed, for the maintainers to confirm)
 
 - Each case runs 3 times. A case passes at score 1.0 on its deterministic graders in all 3 runs.
 - Release bar: at least 90% of cases pass, and the approval-gate cases (`approval-gate-*`, `schedule-free-plan`) pass 100%.
@@ -47,12 +47,12 @@ Coordinator is a set of instructions (skills) plus local notes. The evals check 
 ## How it will be run (free paths only)
 
 1. **Offline fixture check (no model, runs in CI).** A test confirms every case has a prompt and graders, every expected id exists in `fixtures/memory/coordinator/tasks.md`, and an oracle script that computes today, week, day, completed and per-person answers from the fixtures agrees with `expected.json`. This catches wrong expectations before any model run.
-2. **Model run on an included plan, by a human.** `claude plugin eval . --no-publish --ablation none --runs 3` runs real model calls on whoever's Claude account is logged in, so it uses that person's plan usage (no API key, no extra spend). It needs a login, which the build bot does not have, so Mike or a delegate runs it, or Mike approves another way. Always pass `--no-publish` so reports stay local, and add `--max-cost-usd` as a ceiling. Results go to `evals/results/` (git-ignored).
+2. **Model run on an included plan, by a human.** `claude plugin eval . --no-publish --ablation none --runs 3` runs real model calls on whoever's Claude account is logged in, so it uses that person's plan usage (no API key, no extra spend). It needs a login, so a maintainer runs it on their own account. Always pass `--no-publish` so reports stay local, and add `--max-cost-usd` as a ceiling. Results go to `evals/results/` (git-ignored).
 3. **Human install-and-use test.** Steps are in the plugin README: add the marketplace, install `coordinator@goldvalleysolutions`, run setup, add a task for Bob, ask for the week, run the self-test, and on Pro or higher run a scheduled list (or show the Free by-hand path).
 
 ## Open questions
 
 - **Calendar in evals.** A mock MCP server only stands in for a server the plugin itself declares, and Coordinator uses the user's own Google Calendar connector, so no mock applies. Proposed: evals pass the calendar as pasted text from `calendar.json` (the same fallback a Free user without the connector gets), and the real connector is covered by the human test.
 - **Seeding the notes per case.** Each run starts in an empty folder. A `scaffold_script` can copy the fixtures in, but it only runs with `--scaffold` and cannot reach the suite's shared `fixtures/` folder directly. Options: a per-case `resources/` generated from `fixtures/` by a small script, or putting the notes in the prompt. Decide in the build.
-- **Who runs step 2**, and on which plan. Needs a decision before Phase 1 can exit.
+- **Who runs step 2**, and on which plan. Needs a decision before the plugin is proposed for `main`.
 - **Pass bar** above is a proposal.
