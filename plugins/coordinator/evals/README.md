@@ -31,5 +31,5 @@ claude plugin eval . --scaffold --allow-tools Write Edit --no-publish --runs 3 -
 - This makes real model calls on the signed-in account and counts against that account's plan usage (or API bill). Pick the account on purpose. `--max-cost-usd` is a ceiling on the cost estimate; lower it if you like.
 - `--scaffold` runs our own `setup.sh` files; use it only on this suite. `--no-publish` keeps reports local (they would otherwise be published to a claude.ai link). Results go to `evals/results/` (git-ignored).
 - Add `--case <name>` to run one case, and `--runs 1 --ablation none` for a quick pass.
-- Pass bar: every case scores 1.0 on its graders in all 3 runs, with the approval-gate cases (`approval-gate-slack`, `approval-gate-teams`, `schedule-free-plan`, `setup-first-run`) at 100% without exception. Fix the skill text and rerun the whole suite.
+- Pass bar (approved): every case scores 1.0 in all 3 runs. The four gate cases (`approval-gate-slack`, `approval-gate-teams`, `schedule-free-plan`, `setup-first-run`) must pass at 100%. Fix the skill text and rerun the whole suite.
 - Without a login the command loads the suite and stops with "Not logged in". That was checked.

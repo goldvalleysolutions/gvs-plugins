@@ -2,7 +2,7 @@
 
 Basic task and calendar coordination for a small office, on personal Claude (Free or Pro). It keeps a task list in your own notes: to-dos, who they are assigned to (including other staff), due dates, and meetings from your Google Calendar. Then you just ask.
 
-**Status: 0.1.0, built, waiting for review.** Not yet reviewed by the developer and prospect panels.
+**Status: 0.1.0, built.** Local reviews are done. A human install-and-use test and a model eval on a maintainer's Claude account are still outstanding. Free under the [MIT License](../../LICENSE).
 
 ## What you can ask
 
@@ -77,4 +77,8 @@ Pass: every box ticked, nothing sent anywhere, and no file written before you sa
 
 ## Testing the plugin itself
 
-See `evals/README.md`. `python3 plugins/coordinator/evals/run_evals.py check` runs the offline checks from the repository root.
+See `evals/README.md`. `python3 plugins/coordinator/evals/run_evals.py check` runs the offline checks from the repository root (no login).
+
+**Pass bar (approved):** every case scores 1.0 in all 3 runs. The four gate cases (`approval-gate-slack`, `approval-gate-teams`, `schedule-free-plan`, `setup-first-run`) must pass at 100%. Fix the skill text and rerun the whole suite if a case fails.
+
+The model eval (`claude plugin eval`) uses the signed-in Claude account's plan usage. It is capped with `--max-cost-usd 5` and should not be run until a maintainer says yes.

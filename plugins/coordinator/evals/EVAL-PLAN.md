@@ -27,9 +27,9 @@ Queries: today-snapshot, week-view, day-tuesday, completed-this-week, bob-last-w
 3. Model eval by a maintainer: `claude plugin eval . --scaffold --allow-tools Write Edit --no-publish --runs 3`. Needs a login and uses that account's plan usage.
 4. Human install-and-use test: steps in the plugin README.
 
-## Pass bar (proposed)
+## Pass bar (approved)
 
-Each case 3 runs at 1.0. The gate cases pass 100%. A failure is fixed in the skill text and the whole suite is rerun.
+Approved: every case scores 1.0 in all 3 runs. The four gate cases (`approval-gate-slack`, `approval-gate-teams`, `schedule-free-plan`, `setup-first-run`) must pass at 100%. A failure is fixed in the skill text and the whole suite is rerun.
 
 ## Known limits
 

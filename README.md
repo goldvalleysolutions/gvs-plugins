@@ -4,13 +4,13 @@ The Gold Valley Solutions plugin marketplace: plugins that each do one office jo
 
 Plugins are plain files: instructions (skills), starter notes and fixtures. There is no server, nothing is sent anywhere by the plugins themselves, and what a plugin learns about your office is saved as text files in your own working folder.
 
-**Status: early.** This repository is the marketplace skeleton. It lists no plugins yet. The planned order is Coordinator, then Inbox, Librarian and Bookkeeper. When a plugin is released it appears in the marketplace list below and installs as `<name>@goldvalleysolutions`, for example `coordinator@goldvalleysolutions`.
+**Status: early.** The planned order is Coordinator, then Inbox, Librarian and Bookkeeper. Install a listed plugin as `<name>@goldvalleysolutions`, for example `coordinator@goldvalleysolutions`.
 
 ## Plugins
 
 | Plugin | What it does | Status |
 | --- | --- | --- |
-| _none yet_ | | Coordinator is next |
+| [Coordinator](plugins/coordinator/README.md) | Tasks, assignees, due dates, and Google Calendar meetings, in your own notes. | 0.1.0, built. A human install test and a model eval on a Claude account are still outstanding. |
 
 ## Install
 
@@ -28,7 +28,7 @@ Zip a plugin folder (either the folder itself or its contents), then use **Custo
 
 ```bash
 claude plugin marketplace add goldvalleysolutions/gvs-plugins
-claude plugin install coordinator@goldvalleysolutions   # once Coordinator is listed
+claude plugin install coordinator@goldvalleysolutions
 ```
 
 Or inside a Claude Code session:
@@ -79,6 +79,7 @@ Known gaps, so nobody is surprised:
 python3 scripts/validate.py                  # our checks, plus `claude plugin validate` if the CLI is installed
 python3 scripts/validate.py --require-cli    # fail instead of skip when the claude CLI is missing
 python3 -m unittest discover -s tests -v     # tests for the validator
+python3 plugins/coordinator/evals/run_evals.py check   # offline Coordinator evals (no login)
 ```
 
 The validator checks both marketplace files, then every folder in `plugins/` and `templates/plugin`: the three manifests agree on name, version and description, every referenced path exists, and every skill has frontmatter. It exits nonzero on any problem and prints a `SKIPPED` line, never a silent pass, when the `claude` CLI is not available. Install the CLI with `npm install -g @anthropic-ai/claude-code` (no login is needed to validate).
