@@ -5,5 +5,12 @@
     "name": "Gold Valley Solutions LLC",
     "url": "https://goldvalleysolutions.com"
   },
-  "plugins": []
+  "plugins": [
+    {
+      "name": "coordinator",
+      "source": "./plugins/coordinator",
+      "description": "Basic task and calendar coordination for a small office: tasks, assignees, due dates and Google Calendar meetings, kept in local notes. Nothing is sent without your yes.",
+      "category": "productivity"
+    }
+  ]
 }

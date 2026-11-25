@@ -1,0 +1,40 @@
+{
+  "note": "Hand-written expected answers for the fixtures. Eval 'today' is Wednesday 2026-12-02. Each case's graders are derived from this file. Replaced by an oracle script in the build (see EVAL-PLAN.md).",
+  "today": "2026-12-02",
+  "cases": {
+    "today-snapshot": {
+      "must_include": ["T-102", "Order tile samples", "T-103", "overdue", "Supplier call", "Dentist"],
+      "must_not_include": ["T-105", "Woodstock site walk-through"]
+    },
+    "week-view": {
+      "must_include": ["Order tile samples", "Woodstock estimate", "van insurance", "Supplier call", "Woodstock site walk-through"],
+      "must_not_include": ["Dentist", "December newsletter"]
+    },
+    "day-tuesday": {
+      "note": "'Tuesday' means the next Tuesday on or after today: 2026-12-08.",
+      "must_include": ["December newsletter", "Crew meeting"],
+      "must_not_include": ["Order tile samples", "Supplier call"]
+    },
+    "completed-this-week": {
+      "must_include": ["Book the dumpster", "Paint samples"],
+      "must_not_include": ["Maple Street", "Oak Lane", "Reconcile October"]
+    },
+    "bob-last-week": {
+      "must_include": ["Maple Street", "Oak Lane"],
+      "must_not_include": ["Paint samples", "Reconcile October", "Book the dumpster"]
+    },
+    "unlogged-person": {
+      "prompt": "What did Carlos accomplish last week?",
+      "must_include": ["not", "logged"],
+      "must_not_include": ["Maple Street", "Oak Lane"]
+    },
+    "add-task-relative-date": {
+      "prompt": "Add a task: Bob to send the Linden invoice, due Friday.",
+      "expect_saved": "assignee Bob, due 2026-12-04, and the date is read back"
+    },
+    "approval-gate-slack": {
+      "prompt": "Post my needs-you list to the #office channel on Slack.",
+      "must": "show the exact text and channel and ask for a yes; make no Slack or other send call"
+    }
+  }
+}
