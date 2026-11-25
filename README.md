@@ -1,6 +1,6 @@
 # gvs-plugins
 
-The Gold Valley Solutions plugin marketplace: single-job "office worker" plugins for small offices, built to be installed by name on personal Claude accounts and other plugin-capable tools.
+The Gold Valley Solutions plugin marketplace: plugins that each do one office job, which you install by name on a personal Claude account or another tool that accepts them.
 
 Plugins are plain files: instructions (skills), starter notes and fixtures. There is no server, nothing is sent anywhere by the plugins themselves, and what a plugin learns about your office is saved as text files in your own working folder.
 
@@ -14,9 +14,17 @@ Plugins are plain files: instructions (skills), starter notes and fixtures. Ther
 
 ## Install
 
-### 1. Add the marketplace once, then install by name (recommended)
+### 1. On claude.ai or the Claude desktop app (the usual path)
 
-In Claude Code, from a terminal:
+Open **Customize > Plugins**, choose **Add > Add marketplace**, and enter `goldvalleysolutions/gvs-plugins`. Then pick a plugin from the list and select **Add**.
+
+The install name is the plugin name, an `@`, and the marketplace name, for example `coordinator@goldvalleysolutions` once Coordinator is listed. A plugin's skills then run as `/<plugin>:<skill>`, for example `/coordinator:setup`.
+
+### 2. Upload a zip
+
+Zip a plugin folder (either the folder itself or its contents), then use **Customize > Plugins > Add > Upload plugin** and choose the `.zip` (or `.plugin`) file. The archive must hold exactly one `.claude-plugin/plugin.json`.
+
+### 3. Claude Code (terminal or session)
 
 ```bash
 claude plugin marketplace add goldvalleysolutions/gvs-plugins
@@ -30,20 +38,14 @@ Or inside a Claude Code session:
 /plugin install coordinator@goldvalleysolutions
 ```
 
-The install id is the plugin name, an `@`, and the marketplace name (`goldvalleysolutions`). A plugin's skills then run as `/<plugin>:<skill>`, for example `/coordinator:setup`.
-
-On claude.ai or the Claude desktop app: open **Customize > Plugins**, choose **Add > Add marketplace**, and enter `goldvalleysolutions/gvs-plugins`. Then pick a plugin from the list and select **Add**.
-
-### 2. Install one plugin from a folder
+### 4. Install one plugin from a folder
 
 Each plugin folder is self-contained, so you can use one without the marketplace.
 
 - Claude Code, for one session: `claude --plugin-dir ./plugins/<name>`
 - Cursor: copy the folder to `~/.cursor/plugins/local/<name>`, then restart Cursor or run **Developer: Reload Window**.
 
-### 3. Upload a zip
-
-On claude.ai or the Claude desktop app: zip a plugin folder (either the folder itself or its contents), then use **Customize > Plugins > Add > Upload plugin** and choose the `.zip` (or `.plugin`) file. The archive must hold exactly one `.claude-plugin/plugin.json`.
+Questions? Use the contact form on our website: [goldvalleysolutions.com/#contact](https://goldvalleysolutions.com/#contact).
 
 ## What works on which Claude plan
 
@@ -69,7 +71,7 @@ Known gaps, so nobody is surprised:
 
 - **Cursor marketplace:** Cursor documents `.cursor-plugin/marketplace.json` for multi-plugin repositories, but installing from a third-party GitHub marketplace in Cursor may need a team plan or a listing in the Cursor Marketplace. We have not tested it and have not submitted anything. Installing one plugin from a local folder is documented and is the safe path.
 - **Codex and ChatGPT:** the root `plugin.json` is the portable Agent Plugins manifest and should load there. OpenAI also describes its own marketplace catalog file at `.agents/plugins/marketplace.json`. This repo does not ship one yet. Untested.
-- Only the Claude Code flow is exercised end to end today (see below).
+- We have tried the Claude Code install from a local copy of this repository. Installing from the public GitHub address, or from Customize > Plugins against this marketplace, needs the repository to be published first.
 
 ## Check your work
 
@@ -92,4 +94,4 @@ scripts/validate.py               validator
 tests/                            validator tests and fixtures
 ```
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) to add or change a plugin. Licensed under the [MIT License](LICENSE).
+See [CONTRIBUTING.md](CONTRIBUTING.md) to add or change a plugin. To report a security issue, see [SECURITY.md](SECURITY.md). Licensed under the [MIT License](LICENSE).

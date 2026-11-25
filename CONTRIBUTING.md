@@ -34,6 +34,8 @@ python3 -m unittest discover -s tests -v
 - Do not claim more than the docs say. Plugin formats on each tool are still moving: cite the doc URL for any manifest field you rely on, and say so in the pull request when something is a gap.
 - Do not add a plugin to a marketplace listing outside this repository, or publish one anywhere, without the maintainers' approval.
 
+To report a security issue, see [SECURITY.md](SECURITY.md). Do not open a public issue for it.
+
 ## License
 
 By contributing you agree your contribution is licensed under the [MIT License](LICENSE).
