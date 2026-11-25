@@ -47,11 +47,11 @@ On claude.ai or the Claude desktop app: zip a plugin folder (either the folder i
 
 ## What works on which Claude plan
 
-Facts checked against Anthropic's documentation in November 2026. These limits are Anthropic's and can change.
+Plans and limits are Anthropic's and can change; checked in November 2026.
 
-- **Free:** plugins work for Gold Valley on a Claude Free account, where Customize > Plugins and plugin upload are available. Anthropic's help article "Use plugins in Claude" currently says plugins are available on paid plans, and its directory is a paid-plan surface, so check **Customize > Plugins** on your own account. We distribute through this marketplace and zip upload for that reason, not through Anthropic's directory.
+- **Free:** plugins work on the Claude Free plan (Customize > Plugins). You can add this marketplace and upload a plugin zip.
 - **Free limits that matter:** one custom connector, and no scheduled tasks. These plugins keep their notes in local files and do not need a custom connector.
-- **Scheduled tasks** (for example a morning "needs you" list) need Pro or higher. On Free you ask by hand.
+- **Pro or higher** is needed for scheduled tasks (for example a morning "needs you" list). On Free you ask by hand.
 - **Claude Code** works with a plugin from this marketplace as shown above.
 - Plugins that only contain skills and notes, like the ones planned here, load in chat. Hooks and sub-agents run in Cowork and Claude Code, not in chat.
 
