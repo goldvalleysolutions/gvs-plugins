@@ -1,0 +1,1 @@
+I can set up Coordinator: it keeps tasks, assignees and due dates in plain notes and reads Google Calendar. May I create a memory/coordinator folder here? Who do you assign work to?

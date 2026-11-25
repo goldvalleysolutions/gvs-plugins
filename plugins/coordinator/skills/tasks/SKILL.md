@@ -5,28 +5,45 @@ description: Add, change, complete and look up tasks, assignees and due dates, a
 
 # Tasks and questions
 
-> Scaffold only. The full instructions are written in the Coordinator build.
+Read `memory/coordinator/` first, every time: `tasks.md` (the task list), `people.md`, `rules.md`, `CLAUDE.md`. If the notes do not exist, offer `/coordinator:setup` and stop.
 
-## Reads and writes
+Know today's date before answering. Use the date the session gives you; if you do not have one, ask. Weeks run Monday to Sunday unless `rules.md` says otherwise.
 
-- Tasks live in `memory/coordinator/tasks.md`; people in `people.md`; the user's standing preferences in `rules.md`. Read the notes first, every time.
-- Calendar meetings come from the user's connected Google Calendar. If it is not connected, say so and answer from tasks only.
+## Task file format
 
-## Request types this skill must handle (each has an eval case)
+One line per task in `tasks.md`, under `## Open` or `## Completed`. Dates are always absolute (`YYYY-MM-DD`). `me` means the user.
 
-| User says | Result |
-| --- | --- |
-| "Add a task: Bob to finish the Woodstock estimate, due Thursday." | Saves the task with assignee and an absolute due date; repeats the date back. |
-| "What's on today?" | Today's tasks (with assignee) and today's meetings. |
-| "What does my week look like?" | The week's tasks and meetings. |
-| "What do I have on Tuesday?" | That day's tasks and meetings. |
-| "What got completed this week so far?" | Tasks marked completed this week, any assignee. |
-| "What did Bob accomplish last week?" | Bob's tasks logged as completed last week. If nothing is logged, say so; never guess. |
-| "Mark the estimate done." | Marks it completed with today's date. Asks if more than one task matches. |
-| "Add a rule: don't show personal appointments." | Updates `rules.md` and confirms. |
+```
+- [ ] T-101 | Finish the Woodstock estimate | assignee: Bob | due: 2026-12-03 | logged: 2026-11-30
+- [x] T-090 | Quote for the Maple Street job | assignee: Bob | due: 2026-11-25 | logged: 2026-11-18 | completed: 2026-11-24 | note
+```
 
-## Rules
+New ids continue from the highest existing id (`T-106` after `T-105`, or `T-001` for an empty list). Keep the file's other lines exactly as they are.
 
-- Convert "Thursday", "next Friday" and similar to an absolute date before saving, and say the date.
-- Honest limit: Coordinator knows only what the user (or Inbox) logged. Say so when an answer depends on work that was never logged.
-- Never send, post or message anyone from this skill.
+## Calendar
+
+Meetings come from the user's Google Calendar connector when it is connected. Otherwise use a calendar file the user names or events they paste; if there is none of these, say plainly that the calendar is not connected and answer from tasks only. Never invent meetings. An event whose calendar is "Personal" is a personal appointment.
+
+## Answering
+
+Always say which dates you used (for example "Wednesday 2 Dec"). Name the assignee on every task. Keep it short: one line per item.
+
+- **"What's on today?" / today snapshot.** Open tasks due today, then open tasks overdue (due before today, marked overdue), then today's meetings with times. Show personal appointments here unless `rules.md` says otherwise for today.
+- **"What does my week look like?"** From today through Sunday: open tasks by due date, overdue tasks flagged as overdue, and meetings by day. Apply `rules.md` (for example leave out personal appointments if told to). Say what you left out only if asked.
+- **"What do I have on Tuesday?" / "on <day>".** Resolve a bare weekday name to the next such day on or after today, and say the date you resolved to ("Tuesday 8 Dec"). "Last Tuesday" means the one before today. List that day's open tasks and meetings.
+- **"What got completed this week so far?"** Tasks marked completed from Monday of this week through today, any assignee, with who did them.
+- **"What did <person> accomplish last week?"** Tasks assigned to that person with a `completed` date in last Monday to Sunday. If none are logged, say "nothing is logged for <person> last week" and that Coordinator only knows what the user (or Inbox) has logged. If the name is not in `people.md` and has no tasks, say you have no record of that person. Never guess.
+- Other questions about the list ("what's overdue?", "what's Priya got open?"): answer the same way, from the notes only.
+
+## Changing the list
+
+- **Add.** "Add a task: Bob to send the invoice, due Friday." Convert relative dates ("Friday", "next Tuesday", "tomorrow") to an absolute date, add the line to `## Open`, then read back the id, title, assignee and date. If the assignee is not in `people.md`, add them there and say so. If no due date was given, save `due: none` and say so. If a date is ambiguous, ask.
+- **Complete.** "Mark the tile samples done." Find the matching open task. If exactly one matches, move it to `## Completed` as `- [x]` with `completed: <today>` (or the date the user gives). If more than one task could match, list them with ids and ask which; change nothing until the user answers.
+- **Change.** Reassign, retitle or move a due date on request, and read the change back.
+- **Rules.** "Add a rule: ..." appends one plain line to `rules.md` and reads it back. Change `CLAUDE.md` only if the rule belongs in the short summary.
+- If you cannot write files in this session, show the changed lines for the user to paste into `tasks.md` and say that nothing was saved.
+
+## Never
+
+- Never send, post or message anyone from this skill. Slack and Teams posts belong to the `schedule` skill and only after a yes.
+- Never claim to know work that was not logged.

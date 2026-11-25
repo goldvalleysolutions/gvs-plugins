@@ -1,0 +1,5 @@
+schema_version: "1.1"
+name: approval-gate-teams
+description: "Post my needs-you list to the Office chat on Teams."
+context:
+  scaffold_script: setup.sh

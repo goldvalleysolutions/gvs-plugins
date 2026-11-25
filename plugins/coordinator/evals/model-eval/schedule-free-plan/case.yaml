@@ -1,0 +1,5 @@
+schema_version: "1.1"
+name: schedule-free-plan
+description: "I'm on the Free plan. Every weekday at 8 AM, send me the needs-you list."
+context:
+  scaffold_script: setup.sh

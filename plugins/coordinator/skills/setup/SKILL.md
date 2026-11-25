@@ -5,24 +5,28 @@ description: Set up Coordinator for this office. Use when the user says "set me 
 
 # Coordinator setup
 
-> Scaffold only. The full instructions are written in the Coordinator build. This outline fixes what the skill must do.
+Coordinator keeps a small task list and answers schedule questions. Setup creates its notes, learns who the user assigns work to, and ends with a finished first task.
 
-## Goal
+## Notes folder
 
-End the first conversation with a finished first task, so the user never wonders "now what".
+Coordinator keeps everything it learns as plain files in the user's working folder, under `memory/coordinator/`: `CLAUDE.md` (short hot cache), `people.md`, `rules.md`, `tasks.md`, `tests.md`. Starter copies are in this plugin's `memory-templates/` folder. The plugin's own files are read-only: never write inside them, and never read another plugin's notes.
 
-## Outline
+If this session cannot read or write files in a working folder (for example a plain chat with no folder), say so in one sentence. Keep the notes as text in the chat, show the user the finished file contents after each change, and suggest Cowork or Claude Code for saving them. Do not pretend a file was saved.
 
-1. Say in two sentences what Coordinator does and does not do (tasks, assignees, due dates, Google Calendar meetings; it knows about other people's work only from what the user logs; nothing is sent, posted or paid without a yes).
-2. Create the notes folder `memory/coordinator/` in the user's working folder from this plugin's `memory-templates/`. Ask before writing. Never write inside the plugin's own folder.
-3. Ask whether Google Calendar is connected. If not, explain how to connect it from the Connectors page, and offer to carry on without it (tasks only, or pasted calendar text).
-4. Ask who the user assigns work to. Save names to `people.md`.
-5. Ask for standing preferences (how a today snapshot should look, what counts as completed, whether personal appointments are shown). Save to `rules.md`.
-6. First pass: add two or three real tasks, one assigned to someone else, then answer "what does my week look like?". Let the user correct it and update the notes.
-7. Offer the self-test (`/coordinator:self-test`) and, on Pro or higher, a scheduled "needs you" list (`/coordinator:schedule`).
-8. Finish with a short welcome note listing the first jobs and the phrases that run them.
+## Steps
+
+1. **Say what this is, in two or three sentences.** Coordinator keeps tasks, who they are assigned to (including other staff) and due dates; it reads meetings from Google Calendar; it answers "today", "this week", "on Tuesday", "completed" and "what did Bob do". It knows about other people's work only from what the user (or Inbox) logs. It never sends, posts or pays without a yes.
+2. **Ask before writing.** If `memory/coordinator/` does not exist, ask: "May I create a `memory/coordinator/` folder here for my notes?" Do not create anything until the user says yes. In a one-message conversation, stop after asking.
+3. **Create the notes** from `memory-templates/` once the user agrees. Remove the placeholder example lines.
+4. **Calendar.** Ask whether Google Calendar is connected. If not, tell them it connects from Customize > Connectors. Offer to carry on without it: tasks only, or a calendar export or pasted events. Never invent meetings.
+5. **People.** Ask who they assign work to (for example Bob). Save names and a few words on each in `people.md`.
+6. **Standing preferences.** Ask what a today snapshot should show, whether personal appointments belong in the week view, and anything else they want always done. Save each as one line in `rules.md`. Keep the defaults in `CLAUDE.md` in step.
+7. **First pass.** Ask for two or three real tasks, one assigned to someone else, with due dates. Add them with the rules in the `tasks` skill, then answer "what does my week look like?" and let the user correct it. Update the notes when they do.
+8. **Offer next steps.** The self-test (`/coordinator:self-test`). A "needs you" list by hand now, and on Pro or higher a scheduled one (`/coordinator:schedule`).
+9. **Welcome note.** Finish with a short list of the first jobs and the phrases that run them, for example: "What's on today?", "What does my week look like?", "Add a task: Bob to ... due Thursday.", "What did Bob accomplish last week?", "Give me my needs-you list.", "Run the Coordinator self-test."
 
 ## Rules
 
 - Replies appear in chat first. Nothing leaves the chat without an explicit yes.
-- Plain language, short answers.
+- Short, plain language for a small-office reader.
+- If setup was already done (notes exist), say so and offer to review the people and rules instead of starting over.

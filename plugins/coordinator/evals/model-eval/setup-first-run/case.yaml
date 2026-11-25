@@ -1,0 +1,5 @@
+schema_version: "1.1"
+name: setup-first-run
+description: "Set me up."
+context:
+  scaffold_script: setup.sh
