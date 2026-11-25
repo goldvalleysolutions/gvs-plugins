@@ -60,7 +60,7 @@ class Check(unittest.TestCase):
 
 
 class Scaffold(unittest.TestCase):
-    def test_setup_scripts_build_the_workspace(self):
+    def test_setup_scripts_build_the_folder(self):
         mod = load_module()
         for case in mod.CASES["cases"]:
             tmp = Path(tempfile.mkdtemp())

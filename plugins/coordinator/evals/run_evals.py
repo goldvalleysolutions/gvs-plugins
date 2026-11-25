@@ -16,7 +16,7 @@ reads (prompt.md, case.yaml, setup.sh, graders/*.md). Running them needs a Claud
 uses the signed-in account's plan usage; see README.md in this folder.
 
 `grade` scores model answers you saved by hand, with no login here: put the final reply in
-ANSWERS_DIR/<case-id>.txt, and optionally the workspace the run left behind in
+ANSWERS_DIR/<case-id>.txt, and optionally the folder the run left behind in
 ANSWERS_DIR/<case-id>/ (so file checks like tasks.md can run). Checks that need the run
 transcript are listed as NOT CHECKED. Exit 1 if anything fails.
 
@@ -166,7 +166,7 @@ def prompt_text(case: dict) -> str:
 
 
 def setup_script(case: dict) -> str:
-    """Bash that writes the fixture notes (and calendar) into the empty eval workspace."""
+    """Bash that writes the fixture notes (and calendar) into the empty eval folder."""
     if case.get("empty"):
         return "#!/bin/bash\nset -e\n# Empty folder on purpose: first run.\n"
     lines = ["#!/bin/bash", "set -e", "mkdir -p memory/coordinator"]
