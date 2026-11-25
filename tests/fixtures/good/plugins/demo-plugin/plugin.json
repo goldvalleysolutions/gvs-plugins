@@ -1,0 +1,10 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "demo-plugin",
+  "version": "1.0.0",
+  "description": "Fixture plugin demo-plugin.",
+  "author": {
+    "name": "Fixture Author"
+  },
+  "license": "MIT"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "goldvalleysolutions",
+  "description": "Gold Valley Solutions plugins: single-job office plugins for small offices.",
+  "owner": {
+    "name": "Gold Valley Solutions LLC",
+    "url": "https://goldvalleysolutions.com"
+  },
+  "plugins": []
+}

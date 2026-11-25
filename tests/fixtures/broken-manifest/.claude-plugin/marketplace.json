@@ -1,0 +1,14 @@
+{
+  "name": "goldvalleysolutions",
+  "description": "Fixture marketplace.",
+  "owner": {
+    "name": "Fixture Owner"
+  },
+  "plugins": [
+    {
+      "name": "demo-plugin",
+      "source": "./plugins/demo-plugin",
+      "description": "Fixture plugin demo-plugin."
+    }
+  ]
+}

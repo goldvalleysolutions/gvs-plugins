@@ -1,0 +1,21 @@
+name: validate
+
+on:
+  pull_request:
+  push:
+    branches: [main, test]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install the claude CLI (free; no login needed to validate)
+        run: npm install -g @anthropic-ai/claude-code@2.1.331
+      - name: Tests
+        run: python3 -m unittest discover -s tests -v
+      - name: Validate marketplace and plugins
+        run: python3 scripts/validate.py --require-cli
