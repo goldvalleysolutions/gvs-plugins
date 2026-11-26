@@ -1,0 +1,14 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "plugin-template",
+  "version": "0.1.0",
+  "description": "Starter plugin. Copy this folder to plugins/<name>, then rename it everywhere.",
+  "author": {
+    "name": "Gold Valley Solutions LLC",
+    "url": "https://goldvalleysolutions.com"
+  },
+  "homepage": "https://github.com/goldvalleysolutions/gvs-plugins",
+  "repository": "https://github.com/goldvalleysolutions/gvs-plugins",
+  "license": "MIT",
+  "keywords": ["template"]
+}

@@ -1,0 +1,8 @@
+{
+  "name": "Demo_Plugin",
+  "version": "9.9.9",
+  "author": {
+    "name": "Fixture Author"
+  },
+  "license": "MIT"
+}
