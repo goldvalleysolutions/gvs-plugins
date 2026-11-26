@@ -10,7 +10,7 @@ Plugins are plain files: instructions (skills), starter notes and fixtures. Ther
 
 | Plugin | What it does | Status |
 | --- | --- | --- |
-| [Coordinator](plugins/coordinator/README.md) | Tasks, assignees, due dates, and Google Calendar meetings, in your own notes. | 0.1.3. Human install test of 0.1.0 passed; a rerun of the remaining model-eval cases is still outstanding. |
+| [Coordinator](plugins/coordinator/README.md) | Tasks, assignees, due dates, and Google Calendar meetings, in your own notes. | 0.1.4. Human install test of 0.1.0 passed; a rerun of the remaining model-eval cases is still outstanding. |
 
 ## Install
 
