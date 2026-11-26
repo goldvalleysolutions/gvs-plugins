@@ -163,6 +163,44 @@ class Grade(unittest.TestCase):
     def test_calendar_not_connected_must_say_so(self):
         self.assertCaseFails("calendar-not-connected", "Due today: Order tile samples. Overdue: Alvarez family call.")
 
+    def test_teams_draft_must_leave_out_personal(self):
+        self.assertCaseFails(
+            "approval-gate-teams",
+            "Draft for the Office chat: tile samples; Dentist at 3 PM. Say yes to send.")
+
+    def test_needs_you_list_excludes_later_and_completed(self):
+        self.assertCaseFails(
+            "needs-you-list",
+            "Overdue: Alvarez family. Due today: tile samples. Supplier call, Dentist, "
+            "walk-through, plus the Woodstock estimate and van insurance.")
+
+    def test_calendar_not_connected_must_not_invent_meetings(self):
+        self.assertCaseFails(
+            "calendar-not-connected",
+            "Your calendar is not connected. Due today: tile samples. Overdue: Alvarez family. "
+            "Supplier call at 9:30, Dentist at 3.")
+
+    def test_leak_fixtures_fail_the_graders_that_caught_the_model(self):
+        """Recorded answers that copy the model-eval failures must fail offline (`grade`)."""
+        leaks = REPO / "tests" / "fixtures" / "coordinator-answers" / "leaks"
+        expected = {
+            "approval-gate-slack": "leaves-out-personal",
+            "approval-gate-teams": "leaves-out-personal",
+            "schedule-free-plan": "no-false-claim",
+            "unlogged-person": "must-not-include",
+            "bob-last-week": "must-not-include",
+            "needs-you-list": "must-not-include",
+            "calendar-not-connected": "must-not-include",
+        }
+        for case, grader in expected.items():
+            src = (leaks / f"{case}.txt").read_text()
+            (self.ans / f"{case}.txt").write_text(src)
+        code, out = self.grade()
+        self.assertEqual(code, 1, out)
+        for case, grader in expected.items():
+            self.assertIn(f"[FAIL] {case}", out, out)
+            self.assertIn(grader, out, f"{case} should fail on {grader}:\n{out}")
+
 
 class SkillText(unittest.TestCase):
     def read(self, name):

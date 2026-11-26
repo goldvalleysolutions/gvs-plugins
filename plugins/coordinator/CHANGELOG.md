@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.1
+
+- Tighten skills so Slack/Teams drafts leave out personal appointments, a needs-you list stays in scope, person and date-range answers do not invent or borrow work, a missing calendar never invents meetings, and no reply claims a schedule was set up.
+- Same rules noted in the memory templates. Offline leak-answer fixtures cover the model-eval failures.
+
 ## 0.1.0
 
 - Skills written: setup, tasks, schedule, self-test.

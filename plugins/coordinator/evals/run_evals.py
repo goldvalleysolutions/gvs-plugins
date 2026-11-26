@@ -194,10 +194,11 @@ def generate_files() -> dict:
     files = {}
     for case in CASES["cases"]:
         base = f"{case['id']}"
+        tags = ["coordinator", case["skill"], *case.get("tags", [])]
         files[f"{base}/prompt.md"] = (
             "---\nmax_turns: 12\ntimeout_seconds: 300\n"
             "allowed_tools: [Read, Write, Edit, Glob, Grep, Skill]\n"
-            f"tags: [coordinator, {case['skill']}]\n---\n\n" + prompt_text(case))
+            f"tags: [{', '.join(tags)}]\n---\n\n" + prompt_text(case))
         files[f"{base}/case.yaml"] = (
             'schema_version: "1.1"\n'
             f"name: {case['id']}\n"
