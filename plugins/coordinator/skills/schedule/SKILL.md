@@ -39,6 +39,10 @@ Hard rule, for the whole reply, not just the draft: a team post only carries wor
 4. When the user says yes: if Slack or Teams is not connected, say so, send nothing, and give them the text to copy.
 5. A yes covers one post. The next post asks again. A scheduled run never posts.
 
+## Scope notes
+
+The same rule as in the `tasks` skill applies to every reply: never name, number or describe an item that was left out on purpose because it is out of scope or private (no title, id, project or client, date, assignee, or reason). A general line such as "Personal items were left out." is allowed.
+
 ## Not in v1
 
 Real push alerts (phone notifications) are not part of this plugin. Say so if asked.

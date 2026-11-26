@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.5
+
+- New "Scope notes" rule in the `tasks` and `schedule` skills: never name, number or describe an item that was left out on purpose because it is out of scope or private, even when explaining the omission. A general line such as "Tasks outside last week are left out." is allowed. The week view no longer lists what it left out.
+- Offline leak fixture for a last-week answer whose omission note names a task and its project, with a unit test that requires `must-not-include` to fail it. No grader was changed.
+
 ## 0.1.4
 
 - Hard rule on Slack and Teams drafts now covers the whole reply: when the user asks to post, a private or personal item's title appears nowhere (not in the draft, a chat-only list, a summary, or the question around the draft). The reply holds only the team draft and the approval question. Saying that personal items were left out is fine; naming them is not.
