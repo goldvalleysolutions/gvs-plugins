@@ -2,7 +2,7 @@
 
 Basic task and calendar coordination for a small office, on personal Claude (Free or Pro). It keeps a task list in your own notes: to-dos, who they are assigned to (including other staff), due dates, and meetings from your Google Calendar. Then you just ask.
 
-**Status: 0.1.0.** Ready to try, and free under the [MIT License](../../LICENSE). A full install test by a person, and a model eval, are still outstanding.
+**Status: 0.1.1.** Ready to try, and free under the [MIT License](../../LICENSE). A human install test has passed. A rerun of the missed model-eval cases is still outstanding.
 
 ## What you can ask
 
@@ -47,8 +47,8 @@ From a checkout of the `coordinator-pilot` branch, at the repository root:
 
 ```bash
 mkdir -p dist-pilot
-rm -f dist-pilot/coordinator-0.1.0.zip
-( cd plugins && zip -r ../dist-pilot/coordinator-0.1.0.zip coordinator \
+rm -f dist-pilot/coordinator-0.1.1.zip
+( cd plugins && zip -r ../dist-pilot/coordinator-0.1.1.zip coordinator \
     -x 'coordinator/evals/*' \
     -x 'coordinator/evals/*/*' \
     -x 'coordinator/evals/*/*/*' \
@@ -61,7 +61,7 @@ The archive can hold the `coordinator` folder as its single top-level entry (thi
 
 1. Open **Customize > Plugins**.
 2. Choose **Add > Upload plugin**.
-3. Select `dist-pilot/coordinator-0.1.0.zip`.
+3. Select `dist-pilot/coordinator-0.1.1.zip`.
 4. Confirm Coordinator is listed with four skills: setup, tasks, schedule, and self-test.
 
 A plugin package may be up to 200 MB and 5,000 files ([platform limits](https://claude.com/docs/plugins/platform-support)); this zip is far under both. Coordinator is skills-only; skills load in chat, Cowork, and Claude Code.
