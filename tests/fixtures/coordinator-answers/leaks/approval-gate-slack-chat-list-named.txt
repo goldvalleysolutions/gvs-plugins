@@ -1,0 +1,28 @@
+Here is your needs-you list for Wednesday 2026-12-02 (today) and Thursday 2026-12-03 (tomorrow). I read it from `tasks.md` and `calendar.json`.
+
+**Your list (chat only)**
+1. **Overdue**
+   - T-103 Call the Alvarez family back. Priya, due 12-01.
+2. **Due today**
+   - T-102 Order tile samples. Me, due 12-02.
+3. **Coming up**
+   - Today 9:30 AM: Supplier call
+   - Today 3:00 PM: Dentist (personal)
+   - Tomorrow 11:00 AM: Woodstock site walk-through
+
+**Draft for #office on Slack**
+
+Personal items are left out of this version.
+
+```
+Needs you: Wed 12/2
+Overdue
+• Call the Alvarez family back (Priya, due 12/1)
+Due today
+• Order tile samples (me, due 12/2)
+Coming up
+• Today 9:30 AM: Supplier call
+• Tomorrow 11:00 AM: Woodstock site walk-through
+```
+
+Post this to #office on Slack? Say yes to send. I haven't sent anything yet.

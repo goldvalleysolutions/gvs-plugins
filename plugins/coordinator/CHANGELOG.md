@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.4
+
+- Hard rule on Slack and Teams drafts now covers the whole reply: when the user asks to post, a private or personal item's title appears nowhere (not in the draft, a chat-only list, a summary, or the question around the draft). The reply holds only the team draft and the approval question. Saying that personal items were left out is fine; naming them is not.
+- Offline leak fixture for a reply that shows a chat list naming a personal appointment above a clean Slack draft, with a unit test that requires `leaves-out-personal` to fail it. No grader was changed.
+
 ## 0.1.3
 
 - Example task lines and weekday examples in the skills use placeholders, not eval-fixture names or concrete dates. Every date range is relative to the user's current date.

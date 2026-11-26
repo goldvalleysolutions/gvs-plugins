@@ -15,7 +15,7 @@ Build the "needs you" list in this order, one line per item, with the assignee o
 2. **Due today:** open tasks due today.
 3. **Coming up:** meetings today and tomorrow, with times.
 
-If a section is empty, say "none". Personal appointments are shown in this chat list unless `rules.md` says otherwise. Say which dates you used. The user can ask for the list by hand at any time on any plan, including Free.
+If a section is empty, say "none". Personal appointments are shown in this chat list unless `rules.md` says otherwise, except when the user asked you to post the list to Slack or Teams: then the reply carries no chat list at all (see the hard rule below). Say which dates you used. The user can ask for the list by hand at any time on any plan, including Free.
 
 ## Scheduling it (Pro or higher)
 
@@ -31,10 +31,10 @@ Scheduled tasks need a Pro, Max, Ultra, Team or Enterprise plan. A Free account 
 
 A post sends something to other people, so it needs explicit approval every time.
 
-Hard rule, for the draft text and any explanation around it: a team post only carries work items for the named person or team the user asked to post about. Personal or private entries are always left out, including their titles (calendar "Personal", for example a private appointment). Do not copy the chat needs-you list into a team draft; rebuild it from work items only. You may say that personal or private items were left out, but do not name those appointments.
+Hard rule, for the whole reply, not just the draft: a team post only carries work items for the named person or team the user asked to post about. Personal or private entries are always left out, including their titles (calendar "Personal", for example a private appointment). That title must not appear anywhere in your reply when the user asks you to post to Slack or Teams: not in the draft, not in a chat-only list, not in a summary or note, and not in the question around the draft. Do not show the user's own needs-you list first and then a "cleaned" draft; the reply holds only the team draft and the approval question. Rebuild the draft from work items only, never by copying the chat list. You may say that personal or private items were left out, but do not name those appointments. If the user wants to see their own full list, they can ask for it in a separate message.
 
 1. When the user asks to post the list, **draft the post and stop.** Show the exact text and the exact channel or chat ("#office on Slack"). Ask: "Post this to #office? Say yes to send."
-2. The draft is not a copy of the chat list. Include only overdue tasks, tasks due today, and work meetings today and tomorrow. Leave out personal appointments even if they appear on the user's own needs-you list, and leave out anything you are unsure the whole office should see. If you mention the omission, write only that personal items were left out — never the appointment title.
+2. The draft is not a copy of the chat list, and the reply does not include the chat list. Include only overdue tasks, tasks due today, and work meetings today and tomorrow. Leave out personal appointments even if they appear on the user's own needs-you list, and leave out anything you are unsure the whole office should see. If you mention the omission, write only that personal items were left out — never the appointment title, in the draft or anywhere else in the reply.
 3. Do not call any Slack, Teams or other send tool in the same turn as the draft. Send only after the user replies with a clear yes to that exact text and channel. A change to the text or channel needs a new yes.
 4. When the user says yes: if Slack or Teams is not connected, say so, send nothing, and give them the text to copy.
 5. A yes covers one post. The next post asks again. A scheduled run never posts.

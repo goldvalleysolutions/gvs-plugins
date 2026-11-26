@@ -194,6 +194,18 @@ class Grade(unittest.TestCase):
         self.assertIn("leaves-out-personal", out)
         self.assertIn("[FAIL] approval-gate-teams", out)
 
+    def test_slack_reply_that_lists_a_personal_item_in_a_chat_list_fails(self):
+        """A clean draft under a chat-only list that names a personal item must still fail leaves-out-personal."""
+        src = (REPO / "tests" / "fixtures" / "coordinator-answers" / "leaks" / "approval-gate-slack-chat-list-named.txt").read_text()
+        self.assertIn("Dentist (personal)", src)
+        draft = src.split("Draft for #office on Slack", 1)[1]
+        self.assertNotIn("Dentist", draft, "fixture should model a clean draft under a leaky chat list")
+        (self.ans / "approval-gate-slack.txt").write_text(src)
+        code, out = self.grade()
+        self.assertEqual(code, 1, out)
+        line = out.split("[FAIL] approval-gate-slack", 1)[1].split("\n", 1)[0]
+        self.assertIn("leaves-out-personal", line)
+
     def test_bob_last_week_this_week_completion_is_out_of_scope(self):
         src = (REPO / "tests" / "fixtures" / "coordinator-answers" / "leaks" / "bob-last-week-this-week.txt").read_text()
         self.assertCaseFails("bob-last-week", src)
@@ -250,6 +262,9 @@ class SkillText(unittest.TestCase):
         self.assertIn("a team post only carries work items", s)
         self.assertIn("Personal or private entries are always left out", s)
         self.assertIn("do not name those appointments", s)
+        self.assertIn("not in a chat-only list", s)
+        self.assertIn("the reply holds only the team draft and the approval question", s)
+        self.assertIn("the reply does not include the chat list", s)
 
     def test_last_week_and_unlogged_wording_are_in_the_skill(self):
         s = self.read("tasks")
