@@ -1,0 +1,5 @@
+schema_version: "1.1"
+name: week-view
+description: "What does my week look like?"
+context:
+  scaffold_script: setup.sh

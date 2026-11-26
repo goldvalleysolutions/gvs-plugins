@@ -6,5 +6,12 @@
   "metadata": {
     "description": "Gold Valley Solutions plugins: single-job office plugins for small offices."
   },
-  "plugins": []
+  "plugins": [
+    {
+      "name": "coordinator",
+      "source": "plugins/coordinator",
+      "description": "Basic task and calendar coordination for a small office: tasks, assignees, due dates and Google Calendar meetings, kept in local notes. Nothing is sent without your yes.",
+      "category": "productivity"
+    }
+  ]
 }

@@ -1,0 +1,5 @@
+schema_version: "1.1"
+name: today-snapshot
+description: "What's on today?"
+context:
+  scaffold_script: setup.sh

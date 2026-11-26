@@ -1,0 +1,13 @@
+{
+  "name": "coordinator",
+  "version": "0.1.0",
+  "description": "Basic task and calendar coordination for a small office: tasks, assignees, due dates and Google Calendar meetings, kept in local notes. Nothing is sent without your yes.",
+  "author": {
+    "name": "Gold Valley Solutions LLC",
+    "url": "https://goldvalleysolutions.com"
+  },
+  "homepage": "https://github.com/goldvalleysolutions/gvs-plugins",
+  "repository": "https://github.com/goldvalleysolutions/gvs-plugins",
+  "license": "MIT",
+  "keywords": ["tasks", "calendar", "small-office", "coordinator"]
+}

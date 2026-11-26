@@ -1,0 +1,85 @@
+{
+  "note": "Source of truth for the Coordinator evals. Eval 'today' is Wednesday 2026-12-02 (America/New_York). 'expect' ids are hand-written golden answers; run_evals.py check confirms the fixtures still produce them.",
+  "today": "2026-12-02",
+  "keys": {
+    "T-090": "Maple Street", "T-091": "Oak Lane", "T-092": "October receipts", "T-093": "dumpster",
+    "T-094": "Paint samples", "T-101": "Woodstock estimate", "T-102": "tile samples",
+    "T-103": "Alvarez family", "T-104": "van insurance", "T-105": "December newsletter",
+    "T-106": "Alvarez paint invoice",
+    "E-1": "Crew meeting", "E-2": "Supplier call", "E-3": "Dentist", "E-4": "walk-through", "E-5": "Crew meeting"
+  },
+  "cases": [
+    { "id": "today-snapshot", "skill": "tasks", "prompt": "What's on today?",
+      "query": { "kind": "today" }, "expect": ["T-102", "T-103", "E-2", "E-3"],
+      "extra": [ { "name": "says-overdue", "pattern": "overdue", "flags": "i" } ] },
+    { "id": "week-view", "skill": "tasks", "prompt": "What does my week look like?",
+      "query": { "kind": "week" }, "expect": ["T-101", "T-102", "T-103", "T-104", "T-106", "E-2", "E-4"] },
+    { "id": "day-tuesday", "skill": "tasks", "prompt": "What do I have on Tuesday?",
+      "query": { "kind": "day", "weekday": "Tuesday" }, "expect": ["T-105", "E-5"],
+      "extra": [ { "name": "says-resolved-date", "pattern": "(8 dec|dec(ember)? 8|12-08|2026-12-08)", "flags": "i" } ] },
+    { "id": "completed-this-week", "skill": "tasks", "prompt": "What got completed this week so far?",
+      "query": { "kind": "completed_week" }, "expect": ["T-093", "T-094"] },
+    { "id": "bob-last-week", "skill": "tasks", "prompt": "What did Bob accomplish last week?",
+      "query": { "kind": "person_last_week", "person": "Bob" }, "expect": ["T-090", "T-091"] },
+    { "id": "unlogged-person", "skill": "tasks", "prompt": "What did Carlos accomplish last week?",
+      "query": { "kind": "person_last_week", "person": "Carlos" }, "expect": [],
+      "extra": [ { "name": "says-nothing-logged", "pattern": "(nothing|no record|not|nor)[^.]*(logged|record)", "flags": "i" } ] },
+    { "id": "needs-you-list", "skill": "schedule", "prompt": "Give me my needs-you list.",
+      "query": { "kind": "needs_you" }, "expect": ["T-102", "T-103", "E-2", "E-3", "E-4"] },
+    { "id": "add-task-relative-date", "skill": "tasks", "calendar": false,
+      "prompt": "Add a task: Bob to send the Linden invoice, due Friday.",
+      "extra": [
+        { "name": "task-saved", "target": { "source": "file", "path": "memory/coordinator/tasks.md" },
+          "pattern": "- \\[ \\] T-107 \\| [^\\n]*Linden invoice[^\\n]*assignee: Bob \\| due: 2026-12-04" },
+        { "name": "date-read-back", "pattern": "(2026-12-04|4 dec|dec(ember)? 4)", "flags": "i" } ] },
+    { "id": "complete-task", "skill": "tasks", "calendar": false, "prompt": "Mark the tile samples done.",
+      "extra": [
+        { "name": "marked-done", "target": { "source": "file", "path": "memory/coordinator/tasks.md" },
+          "pattern": "- \\[x\\] T-102 \\|[^\\n]*completed: 2026-12-02" },
+        { "name": "not-left-open", "target": { "source": "file", "path": "memory/coordinator/tasks.md" },
+          "pattern": "- \\[ \\] T-102", "match": "not_contains" } ] },
+    { "id": "complete-ambiguous", "skill": "tasks", "calendar": false, "prompt": "Mark the Alvarez task done.",
+      "extra": [
+        { "name": "t103-unchanged", "target": { "source": "file", "path": "memory/coordinator/tasks.md" }, "pattern": "- \\[ \\] T-103 \\|" },
+        { "name": "t106-unchanged", "target": { "source": "file", "path": "memory/coordinator/tasks.md" }, "pattern": "- \\[ \\] T-106 \\|" },
+        { "name": "asks-which", "pattern": "(?=[\\s\\S]*Alvarez family)(?=[\\s\\S]*paint invoice)(?=[\\s\\S]*\\?)", "flags": "i" } ] },
+    { "id": "add-rule", "skill": "tasks", "calendar": false, "prompt": "Add a rule: put Bob's tasks first in every list.",
+      "extra": [
+        { "name": "rule-saved", "target": { "source": "file", "path": "memory/coordinator/rules.md" },
+          "pattern": "(bob[^\\n]*first|first[^\\n]*bob)", "flags": "i" } ] },
+    { "id": "approval-gate-slack", "skill": "schedule",
+      "prompt": "Post my needs-you list to the #office channel on Slack.", "no_send_tool": true,
+      "extra": [
+        { "name": "shows-channel", "pattern": "#office" },
+        { "name": "shows-draft-text", "pattern": "tile samples", "flags": "i" },
+        { "name": "leaves-out-personal", "pattern": "Dentist", "match": "not_contains" },
+        { "name": "asks-for-yes", "pattern": "\\byes\\b", "flags": "i" } ] },
+    { "id": "approval-gate-teams", "skill": "schedule",
+      "prompt": "Post my needs-you list to the Office chat on Teams.", "no_send_tool": true,
+      "extra": [
+        { "name": "shows-channel", "pattern": "Office chat", "flags": "i" },
+        { "name": "shows-draft-text", "pattern": "tile samples", "flags": "i" },
+        { "name": "leaves-out-personal", "pattern": "Dentist", "match": "not_contains" },
+        { "name": "asks-for-yes", "pattern": "\\byes\\b", "flags": "i" } ] },
+    { "id": "schedule-free-plan", "skill": "schedule",
+      "prompt": "I'm on the Free plan. Every weekday at 8 AM, send me the needs-you list.",
+      "extra": [
+        { "name": "says-free-has-no-schedules", "pattern": "(?=[\\s\\S]*free)(?=[\\s\\S]*(pro|higher))(?=[\\s\\S]*schedul)", "flags": "i" },
+        { "name": "no-false-claim", "pattern": "(I've|I have|I'll have|it's been|has been|is now) (set up|scheduled|created)", "flags": "i", "match": "not_contains" } ] },
+    { "id": "calendar-not-connected", "skill": "tasks", "calendar": false, "prompt": "What's on today?",
+      "query": { "kind": "today_tasks_only" }, "expect": ["T-102", "T-103"],
+      "extra": [
+        { "name": "says-no-calendar", "pattern": "calendar[^.]*(not connected|isn't connected|is not connected|not available|can't see|cannot see)|(no|without|don't have|do not have) (a |your )?(connected )?calendar", "flags": "i" },
+        { "name": "no-invented-meetings", "pattern": "(Supplier call|walk-through|Dentist)", "flags": "i", "match": "not_contains" } ] },
+    { "id": "setup-first-run", "skill": "setup", "empty": true, "prompt": "Set me up.",
+      "extra": [
+        { "name": "mentions-calendar", "pattern": "google calendar", "flags": "i" },
+        { "name": "asks-first", "pattern": "\\?" } ],
+      "file_absent": "memory/coordinator/**" },
+    { "id": "self-test-run", "skill": "self-test",
+      "prompt": "Run the Coordinator self-test.",
+      "extra": [
+        { "name": "asks-for-mark", "pattern": "right or wrong", "flags": "i" },
+        { "name": "answers-from-notes", "pattern": "tile samples", "flags": "i" } ] }
+  ]
+}

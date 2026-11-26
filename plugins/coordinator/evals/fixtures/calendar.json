@@ -1,0 +1,10 @@
+{
+  "note": "Invented sample calendar for evals. Eval 'today' is Wednesday 2026-12-02, time zone America/New_York.",
+  "events": [
+    { "id": "E-1", "title": "Crew meeting", "start": "2026-11-24T10:00", "calendar": "Work" },
+    { "id": "E-2", "title": "Supplier call", "start": "2026-12-02T09:30", "calendar": "Work" },
+    { "id": "E-3", "title": "Dentist", "start": "2026-12-02T15:00", "calendar": "Personal" },
+    { "id": "E-4", "title": "Woodstock site walk-through", "start": "2026-12-03T11:00", "calendar": "Work" },
+    { "id": "E-5", "title": "Crew meeting", "start": "2026-12-08T10:00", "calendar": "Work" }
+  ]
+}

@@ -1,0 +1,5 @@
+schema_version: "1.1"
+name: add-task-relative-date
+description: "Add a task: Bob to send the Linden invoice, due Friday."
+context:
+  scaffold_script: setup.sh
