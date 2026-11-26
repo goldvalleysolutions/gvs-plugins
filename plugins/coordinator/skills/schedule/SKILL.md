@@ -31,7 +31,7 @@ Scheduled tasks need a Pro, Max, Ultra, Team or Enterprise plan. A Free account 
 
 A post sends something to other people, so it needs explicit approval every time.
 
-Hard rule, for the draft text and any explanation around it: a team post only carries work items for the named person or team the user asked to post about. Personal or private entries are always left out, including their titles (calendar "Personal", for example a dentist visit). Do not copy the chat needs-you list into a team draft; rebuild it from work items only. You may say that personal or private items were left out, but do not name those appointments.
+Hard rule, for the draft text and any explanation around it: a team post only carries work items for the named person or team the user asked to post about. Personal or private entries are always left out, including their titles (calendar "Personal", for example a private appointment). Do not copy the chat needs-you list into a team draft; rebuild it from work items only. You may say that personal or private items were left out, but do not name those appointments.
 
 1. When the user asks to post the list, **draft the post and stop.** Show the exact text and the exact channel or chat ("#office on Slack"). Ask: "Post this to #office? Say yes to send."
 2. The draft is not a copy of the chat list. Include only overdue tasks, tasks due today, and work meetings today and tomorrow. Leave out personal appointments even if they appear on the user's own needs-you list, and leave out anything you are unsure the whole office should see. If you mention the omission, write only that personal items were left out — never the appointment title.

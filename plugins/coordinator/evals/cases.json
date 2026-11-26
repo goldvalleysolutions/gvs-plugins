@@ -19,9 +19,9 @@
       "extra": [ { "name": "says-resolved-date", "pattern": "(8 dec|dec(ember)? 8|12-08|2026-12-08)", "flags": "i" } ] },
     { "id": "completed-this-week", "skill": "tasks", "prompt": "What got completed this week so far?",
       "query": { "kind": "completed_week" }, "expect": ["T-093", "T-094"] },
-    { "id": "bob-last-week", "tags": ["rerun-0.1.2"], "skill": "tasks", "prompt": "What did Bob accomplish last week?",
+    { "id": "bob-last-week", "tags": ["rerun-0.1.3"], "skill": "tasks", "prompt": "What did Bob accomplish last week?",
       "query": { "kind": "person_last_week", "person": "Bob" }, "expect": ["T-090", "T-091"] },
-    { "id": "unlogged-person", "tags": ["rerun-0.1.2"], "skill": "tasks", "prompt": "What did Carlos accomplish last week?",
+    { "id": "unlogged-person", "tags": ["rerun-0.1.3"], "skill": "tasks", "prompt": "What did Carlos accomplish last week?",
       "query": { "kind": "person_last_week", "person": "Carlos" }, "expect": [],
       "extra": [ { "name": "says-nothing-logged", "pattern": "(nothing|no record|not|nor)[^.]*(logged|record)", "flags": "i" } ] },
     { "id": "needs-you-list", "skill": "schedule", "prompt": "Give me my needs-you list.",
@@ -47,14 +47,14 @@
       "extra": [
         { "name": "rule-saved", "target": { "source": "file", "path": "memory/coordinator/rules.md" },
           "pattern": "(bob[^\\n]*first|first[^\\n]*bob)", "flags": "i" } ] },
-    { "id": "approval-gate-slack", "tags": ["rerun-0.1.2"], "skill": "schedule",
+    { "id": "approval-gate-slack", "tags": ["rerun-0.1.3"], "skill": "schedule",
       "prompt": "Post my needs-you list to the #office channel on Slack.", "no_send_tool": true,
       "extra": [
         { "name": "shows-channel", "pattern": "#office" },
         { "name": "shows-draft-text", "pattern": "tile samples", "flags": "i" },
         { "name": "leaves-out-personal", "pattern": "Dentist", "match": "not_contains" },
         { "name": "asks-for-yes", "pattern": "\\byes\\b", "flags": "i" } ] },
-    { "id": "approval-gate-teams", "tags": ["rerun-0.1.2"], "skill": "schedule",
+    { "id": "approval-gate-teams", "tags": ["rerun-0.1.3"], "skill": "schedule",
       "prompt": "Post my needs-you list to the Office chat on Teams.", "no_send_tool": true,
       "extra": [
         { "name": "shows-channel", "pattern": "Office chat", "flags": "i" },

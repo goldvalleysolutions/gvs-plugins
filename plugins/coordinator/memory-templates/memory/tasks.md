@@ -7,8 +7,8 @@ When done: `- [x] T-001 | title | assignee: name | due: YYYY-MM-DD | logged: YYY
 
 ## Open
 
-- [ ] T-000 | (example) Call the supplier about the delivery | assignee: Bob | due: 2026-01-15 | logged: 2026-01-12
+- [ ] T-000 | (example) Call the supplier about the delivery | assignee: Bob | due: YYYY-MM-DD | logged: YYYY-MM-DD
 
 ## Completed
 
-- [x] T-0000 | (example) Send the quote | assignee: me | due: 2026-01-09 | logged: 2026-01-05 | completed: 2026-01-08 |
+- [x] T-0000 | (example) Send the quote | assignee: me | due: YYYY-MM-DD | logged: YYYY-MM-DD | completed: YYYY-MM-DD |
