@@ -1,0 +1,9 @@
+Last week was Monday 2026-11-23 to Sunday 2026-11-29. I took today as Wednesday 2026-12-02, which is the date you gave.
+
+Bob completed two tasks last week:
+- **T-090:** Quote for the Maple Street job, completed 2026-11-24 (Bob)
+- **T-091:** Site visit, Oak Lane, completed 2026-11-26 (Bob)
+
+I left out T-094 (Paint samples for the Alvarez job). Bob completed it on 2026-11-30, which is this week.
+
+This only covers what's logged in `tasks.md`.

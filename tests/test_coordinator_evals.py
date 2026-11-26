@@ -214,6 +214,19 @@ class Grade(unittest.TestCase):
         self.assertEqual(code, 1, out)
         self.assertIn("must-not-include", out)
 
+    def test_last_week_answer_that_names_a_left_out_task_fails(self):
+        """An otherwise correct answer whose omission note names a task and project must fail must-not-include."""
+        src = (REPO / "tests" / "fixtures" / "coordinator-answers" / "leaks" / "bob-last-week-named-omission.txt").read_text()
+        self.assertIn("T-094", src)
+        self.assertIn("Maple Street", src)
+        self.assertIn("Oak Lane", src)
+        (self.ans / "bob-last-week.txt").write_text(src)
+        code, out = self.grade()
+        self.assertEqual(code, 1, out)
+        line = out.split("[FAIL] bob-last-week", 1)[1].split("\n", 1)[0]
+        self.assertIn("must-not-include", line)
+        self.assertNotIn("must-include,", line)
+
     def test_unlogged_person_paraphrase_fails_says_nothing_logged(self):
         """A truthful answer that never says nothing was logged must fail that grader."""
         src = (REPO / "tests" / "fixtures" / "coordinator-answers" / "leaks" / "unlogged-person-paraphrase.txt").read_text()
@@ -262,6 +275,14 @@ class SkillText(unittest.TestCase):
         self.assertIn("a team post only carries work items", s)
         self.assertIn("Personal or private entries are always left out", s)
         self.assertIn("do not name those appointments", s)
+
+    def test_scope_note_rule_is_in_both_skills(self):
+        for name in ("tasks", "schedule"):
+            s = self.read(name)
+            self.assertIn("## Scope notes", s, name)
+            self.assertIn("never name, number or describe an item that was left out on purpose", s.lower(), name)
+        self.assertIn("Tasks outside last week are left out.", self.read("tasks"))
+        self.assertNotIn("Say what you left out only if asked", self.read("tasks"))
         self.assertIn("not in a chat-only list", s)
         self.assertIn("the reply holds only the team draft and the approval question", s)
         self.assertIn("the reply does not include the chat list", s)

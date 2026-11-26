@@ -29,7 +29,7 @@ Meetings come from the user's Google Calendar connector when it is connected. Ot
 Always say which dates you used (for example "Wednesday <date>"). Name the assignee on every task. Keep it short: one line per item.
 
 - **"What's on today?" / today snapshot.** Open tasks due today, then open tasks overdue (due before today, marked overdue), then today's meetings with times. Show personal appointments here unless `rules.md` says otherwise for today.
-- **"What does my week look like?"** From today through Sunday: open tasks by due date, overdue tasks flagged as overdue, and meetings by day. Apply `rules.md` (for example leave out personal appointments if told to). Say what you left out only if asked.
+- **"What does my week look like?"** From today through Sunday: open tasks by due date, overdue tasks flagged as overdue, and meetings by day. Apply `rules.md` (for example leave out personal appointments if told to). Do not say what you left out; if the user asks, say only that some items were left out, without naming them.
 - **"What do I have on Tuesday?" / "on <day>".** Resolve a bare weekday name to the next such day on or after today, and say the date you resolved to ("Tuesday <date>"). "Last Tuesday" means the one before today. List that day's open tasks and meetings.
 - **"What got completed this week so far?"** Tasks marked completed from Monday of this week through today, any assignee, with who did them.
 - **"What did <person> accomplish last week?"** Only that person, and only tasks assigned to them with a `completed` date in last week (the Monday to Sunday before the current week). Say those two dates. Do not include other people, open tasks, meetings, or work completed this week or any other week, even if it is assigned to them. If none are logged, the first sentence must be "nothing is logged for <person> last week", then that Coordinator only knows what the user (or Inbox) has logged, then stop. Do not paraphrase that sentence, invent work, or mention someone else's tasks to fill the gap. If the name is not in `people.md` and has no tasks, still lead with that sentence, then say you have no record of that person.
@@ -42,6 +42,10 @@ Always say which dates you used (for example "Wednesday <date>"). Name the assig
 - **Change.** Reassign, retitle or move a due date on request, and read the change back.
 - **Rules.** "Add a rule: ..." appends one plain line to `rules.md` and reads it back. Change `CLAUDE.md` only if the rule belongs in the short summary.
 - If you cannot write files in this session, show the changed lines for the user to paste into `tasks.md` and say that nothing was saved.
+
+## Scope notes
+
+This applies to every reply, here and in the `schedule` skill. Never name, number or describe an item that was left out on purpose because it is out of scope or private: no title, no id, no project or client, no date, no assignee, no reason about that item. This holds even when you are only explaining that it was left out. A general line such as "Tasks outside last week are left out." is allowed; it is better to say nothing. Leaving an item out silently is always correct.
 
 ## Never
 

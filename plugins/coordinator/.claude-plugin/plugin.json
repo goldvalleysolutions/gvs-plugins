@@ -1,6 +1,6 @@
 {
   "name": "coordinator",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Basic task and calendar coordination for a small office: tasks, assignees, due dates and Google Calendar meetings, kept in local notes. Nothing is sent without your yes.",
   "author": {
     "name": "Gold Valley Solutions LLC",
