@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.3
+
+- Example task lines and weekday examples in the skills use placeholders, not eval-fixture names or concrete dates. Every date range is relative to the user's current date.
+- Unit test fails if a skill ships a concrete calendar date or a fixture-only name.
+
+
 ## 0.1.2
 
 - Hard rule on Slack and Teams drafts: only work items for the named person or team, and personal or private entries (including their titles) stay out of the draft and the question around it.

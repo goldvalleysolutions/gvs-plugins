@@ -258,5 +258,80 @@ class SkillText(unittest.TestCase):
         self.assertIn("Do not paraphrase that sentence", s)
 
 
+
+class SkillHygiene(unittest.TestCase):
+    """Skills must not ship eval-fixture names or concrete calendar dates."""
+
+    # Distinctive names and titles from the Coordinator eval fixtures.
+    # If a new fixture is added, cover it here or the coverage check fails.
+    FIXTURE_TERMS = (
+        "Woodstock", "Maple Street", "Oak Lane", "Paint samples", "tile samples",
+        "Alvarez", "van insurance", "December newsletter", "October receipts",
+        "dumpster", "Crew meeting", "Supplier call", "Dentist", "walk-through",
+        "Bob", "Priya", "Carlos",
+    )
+
+    def skill_files(self):
+        return [p for p in (REPO / "plugins").rglob("SKILL.md") if "skills" in p.parts]
+
+    def test_skills_do_not_hardcode_dates_or_fixture_names(self):
+        import json
+        import re
+
+        files = self.skill_files()
+        self.assertTrue(files, "no skill files found")
+
+        iso = re.compile(r"\b\d{4}-\d{2}-\d{2}\b")
+        months = (
+            r"January|February|March|April|May|June|July|August|September|"
+            r"October|November|December|Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sept?|Oct|Nov|Dec"
+        )
+        day_month = re.compile(r"\b\d{1,2}\s+(?:" + months + r")\b", re.I)
+        month_day = re.compile(r"\b(?:" + months + r")\s+\d{1,2}(?:st|nd|rd|th)?\b", re.I)
+
+        problems = []
+        for path in files:
+            text = path.read_text()
+            rel = path.relative_to(REPO)
+            for m in iso.finditer(text):
+                problems.append(f"{rel}: concrete ISO date {m.group()!r}")
+            for m in day_month.finditer(text):
+                problems.append(f"{rel}: day plus month {m.group()!r}")
+            for m in month_day.finditer(text):
+                problems.append(f"{rel}: month plus day {m.group()!r}")
+            for term in self.FIXTURE_TERMS:
+                if re.search(r"\b" + re.escape(term) + r"\b", text, re.I):
+                    problems.append(f"{rel}: fixture name {term!r}")
+
+        tasks_md = (EVALS / "fixtures" / "memory" / "coordinator" / "tasks.md").read_text()
+        titles = re.findall(r"\] T-\d+ \| ([^|]+) \| assignee:", tasks_md)
+        ids = re.findall(r"\bT-\d+\b", tasks_md)
+        people_md = (EVALS / "fixtures" / "memory" / "coordinator" / "people.md").read_text()
+        people = [
+            n.strip()
+            for n in re.findall(r"^\\| ([^|]+) \\|", people_md, re.M)
+            if n.strip() and n.strip().lower() != "name"
+        ]
+        calendar = json.loads((EVALS / "fixtures" / "calendar.json").read_text())
+        events = [e["title"] for e in calendar["events"]]
+        for c in load_module().CASES["cases"]:
+            person = (c.get("query") or {}).get("person")
+            if person:
+                people.append(person)
+
+        missing = []
+        for label, items in (("title", titles), ("event", events), ("person", people)):
+            for item in items:
+                if not any(re.search(r"\b" + re.escape(term) + r"\b", item, re.I) for term in self.FIXTURE_TERMS):
+                    missing.append(f"{label} {item!r} is not covered by FIXTURE_TERMS")
+        for tid in sorted(set(ids)):
+            for path in files:
+                if re.search(r"\b" + re.escape(tid) + r"\b", path.read_text()):
+                    problems.append(f"{path.relative_to(REPO)}: fixture task id {tid}")
+
+        self.assertFalse(missing, "update FIXTURE_TERMS:\n" + "\n".join(missing))
+        self.assertFalse(problems, "skill text leaks dates or fixture names:\n" + "\n".join(problems))
+
+
 if __name__ == "__main__":
     unittest.main()
