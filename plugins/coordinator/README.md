@@ -37,18 +37,47 @@ Coordinator writes plain files in your working folder under `memory/coordinator/
 
 ## Install
 
-### On claude.ai or the Claude desktop app
+The Claude desktop app and claude.ai **Add marketplace** field accepts a GitHub `owner/repo` or a full Git URL only, for example `goldvalleysolutions/gvs-plugins` or `https://github.com/goldvalleysolutions/gvs-plugins`. Those use the default branch (`main`). A branch suffix such as `#coordinator-pilot` is rejected there ("Marketplace source format is invalid"). See [Use plugins in Claude](https://support.claude.com/en/articles/13837440-use-plugins-in-claude) and the [Plugins overview](https://claude.com/docs/plugins/overview).
 
-Open **Customize > Plugins**, choose **Add > Add marketplace**, and enter `goldvalleysolutions/gvs-plugins`. Then add Coordinator.
+Until Coordinator is on `main`, install it in the desktop app by uploading the zip below, or add this branch from the Claude Code CLI.
 
-To install from a zip instead: from the repository root run `cd plugins && zip -r coordinator.zip coordinator -x "coordinator/evals/*"`, then **Customize > Plugins > Add > Upload plugin** and choose that file.
+### 1. On claude.ai or the Claude desktop app: upload the zip (the path that works today)
 
-### Claude Code
+From a checkout of the `coordinator-pilot` branch, at the repository root:
 
 ```bash
-claude plugin marketplace add goldvalleysolutions/gvs-plugins
+mkdir -p dist-pilot
+rm -f dist-pilot/coordinator-0.1.0.zip
+( cd plugins && zip -r ../dist-pilot/coordinator-0.1.0.zip coordinator \
+    -x 'coordinator/evals/*' \
+    -x 'coordinator/evals/*/*' \
+    -x 'coordinator/evals/*/*/*' \
+    -x 'coordinator/evals/*/*/*/*' \
+    -x 'coordinator/evals/*/*/*/*/*' \
+    -x '*__pycache__*' )
+```
+
+The archive can hold the `coordinator` folder as its single top-level entry (this command does that) or the folder's contents directly. Either works as long as there is one `.claude-plugin/plugin.json` at the zip root or one folder down ([plugin structure](https://claude.com/docs/plugins/build)). Then:
+
+1. Open **Customize > Plugins**.
+2. Choose **Add > Upload plugin**.
+3. Select `dist-pilot/coordinator-0.1.0.zip`.
+4. Confirm Coordinator is listed with four skills: setup, tasks, schedule, and self-test.
+
+A plugin package may be up to 200 MB and 5,000 files ([platform limits](https://claude.com/docs/plugins/platform-support)); this zip is far under both. Coordinator is skills-only; skills load in chat, Cowork, and Claude Code.
+
+Once Coordinator is on `main`, you can instead choose **Add > Add marketplace**, enter `goldvalleysolutions/gvs-plugins`, and add Coordinator from the list.
+
+### 2. Claude Code CLI (fallback, works on this branch today)
+
+The `#ref` suffix is documented for Claude Code ([Install plugins](https://code.claude.com/docs/en/plugins/install)), not for the desktop Add marketplace field:
+
+```bash
+claude plugin marketplace add goldvalleysolutions/gvs-plugins#coordinator-pilot
 claude plugin install coordinator@goldvalleysolutions
 ```
+
+The same `#coordinator-pilot` suffix also works on the full Git URL: `https://github.com/goldvalleysolutions/gvs-plugins.git#coordinator-pilot`. Once `main` has this code, drop the `#coordinator-pilot` and use `goldvalleysolutions/gvs-plugins`.
 
 Questions? Use the contact form on our website: [goldvalleysolutions.com/#contact](https://goldvalleysolutions.com/#contact).
 
@@ -56,7 +85,7 @@ Questions? Use the contact form on our website: [goldvalleysolutions.com/#contac
 
 About 20 minutes. Use a scratch folder and invented tasks. Tick each box; write down anything surprising.
 
-1. [ ] Add the marketplace and install Coordinator (above). Expected: Coordinator is listed with four skills (setup, tasks, schedule, self-test).
+1. [ ] Install Coordinator with the zip upload in Customize > Plugins (recommended), or with the Claude Code CLI command above. Expected: Coordinator is listed with four skills (setup, tasks, schedule, self-test).
 2. [ ] Open a new empty folder in Claude Code or a Cowork project. Type "Set me up."
    Expected: a short explanation, then it asks before creating a `memory/coordinator/` folder, and asks about Google Calendar and who you assign work to.
 3. [ ] Say yes. Name one person (for example Bob). Skip the calendar, or connect Google Calendar from Customize > Connectors if you want to test it.

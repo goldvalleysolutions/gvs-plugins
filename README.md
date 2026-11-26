@@ -14,27 +14,40 @@ Plugins are plain files: instructions (skills), starter notes and fixtures. Ther
 
 ## Install
 
-### 1. On claude.ai or the Claude desktop app (the usual path)
+The Claude desktop app and claude.ai **Add marketplace** field accepts a GitHub `owner/repo` or a full Git URL, for example `goldvalleysolutions/gvs-plugins` or `https://github.com/goldvalleysolutions/gvs-plugins`. Those forms use the repository's default branch (`main`). A branch suffix such as `#coordinator-pilot` is not accepted there (the app reports that the source format is invalid). See [Use plugins in Claude](https://support.claude.com/en/articles/13837440-use-plugins-in-claude) and the [Plugins overview](https://claude.com/docs/plugins/overview).
 
-Open **Customize > Plugins**, choose **Add > Add marketplace**, and enter `goldvalleysolutions/gvs-plugins`. Then pick a plugin from the list and select **Add**.
+Until the marketplace files are on `main`, add a plugin from this repo by uploading a zip (section 2) or from the Claude Code CLI with a `#` branch (section 3). Once `main` has this code, **Add marketplace** with `goldvalleysolutions/gvs-plugins` is the usual path.
 
 The install name is the plugin name, an `@`, and the marketplace name, for example `coordinator@goldvalleysolutions`. A plugin's skills then run as `/<plugin>:<skill>`, for example `/coordinator:setup`.
 
-### 2. Upload a zip
+### 1. On claude.ai or the Claude desktop app
 
-Zip a plugin folder (either the folder itself or its contents), then use **Customize > Plugins > Add > Upload plugin** and choose the `.zip` (or `.plugin`) file. The archive must hold exactly one `.claude-plugin/plugin.json`.
+Open **Customize > Plugins**.
+
+- **After this code is on `main`:** choose **Add > Add marketplace**, enter `goldvalleysolutions/gvs-plugins`, then pick a plugin and select **Add**.
+- **Until then:** use **Add > Upload plugin** with a plugin zip (next section). Do not enter `goldvalleysolutions/gvs-plugins#…` in Add marketplace; that form is rejected.
+
+### 2. Upload a zip (works in the desktop app before `main` is updated)
+
+Zip a plugin folder (either the folder itself or its contents), then use **Customize > Plugins > Add > Upload plugin** and choose the `.zip` (or `.plugin`) file. The archive must hold exactly one `.claude-plugin/plugin.json`, at the zip root or inside a single top-level folder ([plugin structure](https://claude.com/docs/plugins/build)). A package may be up to 200 MB and 5,000 files ([platform limits](https://claude.com/docs/plugins/platform-support)). Skills-only plugins are supported; skills load in chat, Cowork, and Claude Code.
+
+For Coordinator, the exact zip command is in [its README](plugins/coordinator/README.md#install).
 
 ### 3. Claude Code (terminal or session)
 
+Until this is on `main`, pin the branch. The `#ref` suffix is documented for Claude Code, not for the desktop Add marketplace field ([Install plugins](https://code.claude.com/docs/en/plugins/install)):
+
 ```bash
-claude plugin marketplace add goldvalleysolutions/gvs-plugins
+claude plugin marketplace add goldvalleysolutions/gvs-plugins#coordinator-pilot
 claude plugin install coordinator@goldvalleysolutions
 ```
+
+The same `#coordinator-pilot` suffix also works on the full Git URL (`https://github.com/goldvalleysolutions/gvs-plugins.git#coordinator-pilot`). Once `main` has this code, drop the `#coordinator-pilot` and use `goldvalleysolutions/gvs-plugins`.
 
 Or inside a Claude Code session:
 
 ```text
-/plugin marketplace add goldvalleysolutions/gvs-plugins
+/plugin marketplace add goldvalleysolutions/gvs-plugins#coordinator-pilot
 /plugin install coordinator@goldvalleysolutions
 ```
 
@@ -71,7 +84,7 @@ Known gaps, so nobody is surprised:
 
 - **Cursor marketplace:** Cursor documents `.cursor-plugin/marketplace.json` for multi-plugin repositories, but installing from a third-party GitHub marketplace in Cursor may need a team plan or a listing in the Cursor Marketplace. We have not tested it and have not submitted anything. Installing one plugin from a local folder is documented and is the safe path.
 - **Codex and ChatGPT:** the root `plugin.json` is the portable Agent Plugins manifest and should load there. OpenAI also describes its own marketplace catalog file at `.agents/plugins/marketplace.json`. This repo does not ship one yet. Untested.
-- We have tried the Claude Code install from a local copy of this repository. Installing from the public GitHub address, or from Customize > Plugins against this marketplace, needs the repository to be published first.
+- The public GitHub repo exists. **Add marketplace** with `goldvalleysolutions/gvs-plugins` (or the HTTPS URL with no branch) uses `main`, which does not yet contain the marketplace files, so that form fails until `main` is updated. A zip upload, or the Claude Code CLI with `#coordinator-pilot`, works today.
 
 ## Check your work
 
