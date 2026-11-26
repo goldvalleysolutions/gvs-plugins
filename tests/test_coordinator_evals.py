@@ -180,6 +180,38 @@ class Grade(unittest.TestCase):
             "Your calendar is not connected. Due today: tile samples. Overdue: Alvarez family. "
             "Supplier call at 9:30, Dentist at 3.")
 
+    def test_team_draft_fails_if_it_names_a_personal_appointment_in_the_omission(self):
+        """Naming Dentist while saying it was left out still fails leaves-out-personal."""
+        leaks = REPO / "tests" / "fixtures" / "coordinator-answers" / "leaks"
+        for case, fname in (
+            ("approval-gate-slack", "approval-gate-slack-named-omission.txt"),
+            ("approval-gate-teams", "approval-gate-teams-named-omission.txt"),
+        ):
+            (self.ans / f"{case}.txt").write_text((leaks / fname).read_text())
+        code, out = self.grade()
+        self.assertEqual(code, 1, out)
+        self.assertIn("[FAIL] approval-gate-slack", out)
+        self.assertIn("leaves-out-personal", out)
+        self.assertIn("[FAIL] approval-gate-teams", out)
+
+    def test_bob_last_week_this_week_completion_is_out_of_scope(self):
+        src = (REPO / "tests" / "fixtures" / "coordinator-answers" / "leaks" / "bob-last-week-this-week.txt").read_text()
+        self.assertCaseFails("bob-last-week", src)
+        (self.ans / "bob-last-week.txt").write_text(src)
+        code, out = self.grade()
+        self.assertEqual(code, 1, out)
+        self.assertIn("must-not-include", out)
+
+    def test_unlogged_person_paraphrase_fails_says_nothing_logged(self):
+        """A truthful answer that never says nothing was logged must fail that grader."""
+        src = (REPO / "tests" / "fixtures" / "coordinator-answers" / "leaks" / "unlogged-person-paraphrase.txt").read_text()
+        (self.ans / "unlogged-person.txt").write_text(src)
+        code, out = self.grade()
+        self.assertEqual(code, 1, out)
+        self.assertIn("[FAIL] unlogged-person", out)
+        self.assertIn("says-nothing-logged", out)
+        self.assertNotIn("must-not-include", out.split("[FAIL] unlogged-person", 1)[1].split("\n", 1)[0])
+
     def test_leak_fixtures_fail_the_graders_that_caught_the_model(self):
         """Recorded answers that copy the model-eval failures must fail offline (`grade`)."""
         leaks = REPO / "tests" / "fixtures" / "coordinator-answers" / "leaks"
@@ -215,6 +247,15 @@ class SkillText(unittest.TestCase):
         self.assertIn("draft the post and stop", s)
         self.assertIn("A scheduled run never posts", s)
         self.assertIn("A Free account has no scheduled tasks", s)
+        self.assertIn("a team post only carries work items", s)
+        self.assertIn("Personal or private entries are always left out", s)
+        self.assertIn("do not name those appointments", s)
+
+    def test_last_week_and_unlogged_wording_are_in_the_skill(self):
+        s = self.read("tasks")
+        self.assertIn("work completed this week or any other week", s)
+        self.assertIn('the first sentence must be "nothing is logged for <person> last week"', s)
+        self.assertIn("Do not paraphrase that sentence", s)
 
 
 if __name__ == "__main__":
