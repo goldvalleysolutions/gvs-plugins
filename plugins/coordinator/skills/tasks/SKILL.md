@@ -1,9 +1,11 @@
 ---
 name: tasks
-description: Add, change, complete and look up tasks, assignees and due dates, and answer "what's on today", "what does my week look like", "what do I have on Tuesday", "what got completed this week", and "what did Sam do last week". Use for any question or request about to-dos, who is doing what, or what is due.
+description: Add, change, complete and look up tasks, assignees and due dates, and answer "what's on today", "what does my week look like", "what do I have on Tuesday", "what got completed this week", and "what did Sam do last week". Also use for rule changes: whenever the user says "add a rule", "new rule", "from now on", "always" or "never" about how lists or tasks are shown, because rules live in `rules.md` and this skill is the only one that edits it. Use for any question or request about to-dos, who is doing what, or what is due.
 ---
 
 # Tasks and questions
+
+Load this skill before changing `rules.md`. A request like "Add a rule: put Sam's tasks first in every list" is handled here, not by editing the file directly.
 
 Read `memory/coordinator/` first, every time: `tasks.md` (the task list), `people.md`, `rules.md`, `CLAUDE.md`. If the notes do not exist, offer `/coordinator:setup` and stop.
 
