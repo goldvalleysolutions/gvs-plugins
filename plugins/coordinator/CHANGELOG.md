@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.6
+
+- `tasks` skill trigger is stronger for rule changes: the description now names "add a rule", "new rule", "from now on", "always" and "never", and the body says to load the skill before changing `rules.md`. In the 0.1.5 model eval the `add-rule` case saved the rule correctly but skipped the skill on 2 of 3 runs.
+- No grader and no safety gate changed.
+
 ## 0.1.5
 
 - New "Scope notes" rule in the `tasks` and `schedule` skills: never name, number or describe an item that was left out on purpose because it is out of scope or private, even when explaining the omission. A general line such as "Tasks outside last week are left out." is allowed. The week view no longer lists what it left out.

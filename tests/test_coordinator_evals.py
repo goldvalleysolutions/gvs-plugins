@@ -276,6 +276,13 @@ class SkillText(unittest.TestCase):
         self.assertIn("Personal or private entries are always left out", s)
         self.assertIn("do not name those appointments", s)
 
+    def test_tasks_skill_triggers_on_rule_changes(self):
+        s = self.read("tasks")
+        description = s.split("---", 2)[1]
+        for phrase in ("add a rule", "new rule", "from now on", "rules.md"):
+            self.assertIn(phrase, description, phrase)
+        self.assertIn("Load this skill before changing `rules.md`", s)
+
     def test_scope_note_rule_is_in_both_skills(self):
         for name in ("tasks", "schedule"):
             s = self.read(name)
